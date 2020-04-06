@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RadioGroup
+        android:id="@+id/rg_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/icon_home"
+            android:text="Home"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_shoppinglist"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/icon_list"
+            android:text="ShoppingList" />
+
+        <RadioButton
+            android:id="@+id/rb_search"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/icon_search"
+            android:text="Search" />
+
+        <RadioButton
+            android:id="@+id/rb_timer"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/icon_timer"
+            android:text="Search" />
+
+        <RadioButton
+            android:id="@+id/rb_favorite"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/icon_favorite"
+            android:text="Search" />
+
+    </RadioGroup>
+
+    <View
+        android:id="@+id/div_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_above="@id/rg_tab_bar"
+        android:background="#c0c0c0" />
+    <FrameLayout
+        android:id="@+id/ly_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rg_tab_bar">
+    </FrameLayout>
+
+</RelativeLayout>
