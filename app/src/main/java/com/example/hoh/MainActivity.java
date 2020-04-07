@@ -17,6 +17,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.hoh.favorite.FavoriteFragment;
+import com.example.hoh.favorite.FavoriteRecipeFragment;
+import com.example.hoh.home.HomeRecipeFragment;
+import com.example.hoh.search.SearchRecipeFragment;
 import com.example.hoh.signin.SignInActivity;
 import com.example.hoh.timer.TimerFragment;
 import com.example.hoh.home.HomeFragment;
@@ -27,9 +30,19 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     private RadioGroup rg_tab_bar;
     private RadioButton rb_main;
-    private String s = "123";
 
-    private Fragment fg_home, fg_shopping_list, fg_timer, fg_search, fg_favorite;
+    private Fragment mCurFragment = new Fragment();
+    private HomeFragment fg_home = new HomeFragment();
+    private Fragment fg_shopping_list = new ShoppingListFragment();
+    private Fragment fg_timer = new TimerFragment();
+    private Fragment fg_search = new SearchFragment();
+    private Fragment fg_favorite = new FavoriteFragment();
+    private Fragment fg_home_recipe = new HomeRecipeFragment();
+    private Fragment fg_favorite_recipe = new FavoriteRecipeFragment();
+    private Fragment fg_search_recipe = new SearchRecipeFragment();
+    public int home_status = 0;
+    public int search_status = 0;
+    public int favorite_status = 1;
     private FragmentManager fManager;
 
 
@@ -47,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //获取首页单选按钮，并设置为选中状态
         rb_main = (RadioButton) findViewById(R.id.rb_home);
         rb_main.setChecked(true);
-
     }
 
 
@@ -55,55 +67,110 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        hideAllFragment(fTransaction);
+//        hideAllFragment(fTransaction);
 
         switch (checkedId){
             case R.id.rb_search:
-                if (fg_search == null){
-                    //第一次需要加载Fragment
-                    fg_search = new SearchFragment();
-                    fTransaction.add(R.id.ly_content,fg_search);
-                } else{
-                    fTransaction.show(fg_search);
+                if(getSearch_status() == 0) {
+                    switchToSearch();
+                } else if (getSearch_status() == 2) {
+
+
+                } else {
+                    switchToSearchRecipe();
                 }
+//                if (fg_search == null){
+//                    //第一次需要加载Fragment
+//                    fg_search = new SearchFragment();
+//                    fTransaction.add(R.id.ly_content,fg_search);
+//                } else{
+//                    fTransaction.show(fg_search);
+//                }
                 break;
             case R.id.rb_home:
-                if (fg_home == null){
-                    fg_home = new HomeFragment();
-                    fTransaction.add(R.id.ly_content,fg_home);
-                }else{
-                    fTransaction.show(fg_home);
+                if (getHome_status() == 0) {
+                    switchToHome();
+                } else {
+                    switchToHomeRecipe();
                 }
+//                if (fg_home == null){
+//                    fg_home = new HomeFragment();
+//                    fTransaction.add(R.id.ly_content,fg_home);
+//                }else{
+//                    fTransaction.show(fg_home);
+//                }
                 break;
             case R.id.rb_shoppinglist:
-                if (fg_shopping_list == null){
-                    fg_shopping_list = new ShoppingListFragment();
-                    fTransaction.add(R.id.ly_content,fg_shopping_list);
-                }else{
-                    fTransaction.show(fg_shopping_list);
-                }
+                switchToShoppingList();
                 break;
 
             case R.id.rb_favorite:
-                if (fg_favorite == null){
-                    fg_favorite = new FavoriteFragment();
-                    fTransaction.add(R.id.ly_content,fg_favorite);
-                }else{
-                    fTransaction.show(fg_favorite);
+                if (getFavorite_status() == 0) {
+                    switchToFavorite();
+                } else {
+                    switchToFavoriteRecipe();
                 }
+//                if (fg_favorite == null){
+//                    fg_favorite = new FavoriteFragment();
+//                    fTransaction.add(R.id.ly_content,fg_favorite);
+//                }else{
+//                    fTransaction.show(fg_favorite);
+//                }
                 break;
 
             case R.id.rb_timer:
-                if (fg_timer == null){
-                    fg_timer = new TimerFragment();
-                    fTransaction.add(R.id.ly_content,fg_timer);
-                }else{
-                    fTransaction.show(fg_timer);
-                }
+                switchToTimer();
                 break;
 
         }
         fTransaction.commit();
+    }
+
+    private void switchFragment(Fragment targetFragment){
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
+        if (!targetFragment.isAdded()) {//如果要显示的targetFragment没有添加过
+            transaction
+                    .hide(mCurFragment)//隐藏当前Fragment
+                    .add(R.id.ly_content, targetFragment)//添加targetFragment
+                    .commit();
+        } else {//如果要显示的targetFragment已经添加过
+            transaction//隐藏当前Fragment
+                    .hide(mCurFragment)
+                    .show(targetFragment)//显示targetFragment
+                    .commit();
+        }
+        //更新当前Fragment为targetFragment
+        mCurFragment = targetFragment;
+
+    }
+
+    public void switchToHome() {
+        switchFragment(fg_home);
+    }
+
+    public void switchToFavorite() {
+        switchFragment(fg_favorite);
+    }
+    public void switchToSearch() {
+        switchFragment(fg_search);
+    }
+    public void switchToShoppingList() {
+        switchFragment(fg_shopping_list);
+    }
+    public void switchToFavoriteRecipe() {
+        switchFragment(fg_favorite_recipe);
+    }
+    public void switchToHomeRecipe() {
+        switchFragment(fg_home_recipe);
+    }
+
+    public void switchToSearchRecipe() {
+        switchFragment(fg_search_recipe);
+    }
+
+    public void switchToTimer() {
+        switchFragment(fg_timer);
     }
 
     //隐藏所有的Fragment
@@ -113,6 +180,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         if(fg_search != null)fTransaction.hide(fg_search);
         if(fg_timer != null)fTransaction.hide(fg_timer);
         if(fg_favorite != null)fTransaction.hide(fg_favorite);
+        if(fg_favorite_recipe != null)fTransaction.hide(fg_favorite_recipe);
+        if(fg_home_recipe != null)fTransaction.hide(fg_home_recipe);
+        if(fg_search_recipe != null)fTransaction.hide(fg_search_recipe);
     }
 
     private void goToSignInActivity() {
@@ -147,5 +217,39 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+    // setter and getter for public variable
+    public int getHome_status() {
+        return home_status;
+    }
+    public int getSearch_status() {
+        return search_status;
+    }
+
+    public int getFavorite_status() {
+        return favorite_status;
+    }
+
+    public void setHome_status(int value) {
+        home_status = value;
+    }
+    public void setSearch_status(int value) {
+        search_status = value;
+    }
+    public void setFavorite_status(int value) {
+        favorite_status = value;
+    }
+
+    public RadioGroup getrg_tab_bar() {
+        return rg_tab_bar;
+    }
+
+    public int getCheck_id() {
+        return rg_tab_bar.getCheckedRadioButtonId();
+    }
+
+
+
 
 }
