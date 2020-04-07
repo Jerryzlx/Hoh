@@ -147,6 +147,7 @@ public class TimerFragment extends Fragment {
         @Override
         public void onFinish() {
             textView.setText(getTime(time));
+            timer = null;
         }
 
     }

@@ -35,13 +35,13 @@
             android:id="@+id/rb_timer"
             style="@style/tab_menu_item"
             android:drawableTop="@drawable/icon_timer"
-            android:text="Search" />
+            android:text="Timer" />
 
         <RadioButton
             android:id="@+id/rb_favorite"
             style="@style/tab_menu_item"
             android:drawableTop="@drawable/icon_favorite"
-            android:text="Search" />
+            android:text="Favorite" />
 
     </RadioGroup>
 
