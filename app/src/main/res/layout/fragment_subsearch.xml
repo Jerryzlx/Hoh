@@ -141,7 +141,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_ok"
+        android:id="@+id/btn_search"
         android:text="Search"
         android:gravity="center"
         android:textSize="18sp"
