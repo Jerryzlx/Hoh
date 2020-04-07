@@ -20,6 +20,7 @@ import com.example.hoh.favorite.FavoriteFragment;
 import com.example.hoh.favorite.FavoriteRecipeFragment;
 import com.example.hoh.home.HomeRecipeFragment;
 import com.example.hoh.search.SearchRecipeFragment;
+import com.example.hoh.search.SubSearchFragment;
 import com.example.hoh.signin.SignInActivity;
 import com.example.hoh.timer.TimerFragment;
 import com.example.hoh.home.HomeFragment;
@@ -40,9 +41,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private Fragment fg_home_recipe = new HomeRecipeFragment();
     private Fragment fg_favorite_recipe = new FavoriteRecipeFragment();
     private Fragment fg_search_recipe = new SearchRecipeFragment();
+    private Fragment fg_subsearch = new SubSearchFragment();
     public int home_status = 0;
-    public int search_status = 0;
-    public int favorite_status = 1;
+    public int search_status = 1;
+    public int favorite_status = 0;
     private FragmentManager fManager;
 
 
@@ -73,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             case R.id.rb_search:
                 if(getSearch_status() == 0) {
                     switchToSearch();
-                } else if (getSearch_status() == 2) {
-
+                } else if (getSearch_status() == 1) {
+                    switchToSubSearch();
 
                 } else {
                     switchToSearchRecipe();
@@ -167,6 +169,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     public void switchToSearchRecipe() {
         switchFragment(fg_search_recipe);
+    }
+
+    public void switchToSubSearch() {
+        switchFragment(fg_subsearch);
     }
 
     public void switchToTimer() {
