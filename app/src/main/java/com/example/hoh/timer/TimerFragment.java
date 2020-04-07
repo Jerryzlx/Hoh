@@ -62,6 +62,9 @@ public class TimerFragment extends Fragment {
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(timer == null) {
+                    return;
+                }
                 timer.cancel();
                 timer = null;
             }
@@ -99,7 +102,7 @@ public class TimerFragment extends Fragment {
                 if (timer != null) {
                     return;
                 }
-                if (time - 60000 > 0) {
+                if (time - 60000 >= 0) {
                     time -= 60000;
                     textView.setText(getTime(time));
                 }
@@ -114,7 +117,7 @@ public class TimerFragment extends Fragment {
                 if (timer != null) {
                     return;
                 }
-                if (time - 1000 > 0) {
+                if (time - 1000 >= 0) {
                     time -= 1000;
                     textView.setText(getTime(time));
                 }
