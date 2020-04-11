@@ -16,7 +16,6 @@ import com.example.hoh.MainActivity;
 import com.example.hoh.R;
 
 public class HomeRecipeFragment extends Fragment {
-    private ImageView imageView;
     private TextView title;
     private TextView detail;
     private ImageButton back;
@@ -25,7 +24,6 @@ public class HomeRecipeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe,container,false);
-        imageView = (ImageView) view.findViewById(R.id.imageView_recipe);
         title = (TextView) view.findViewById(R.id.textView_recipe_title);
         detail = (TextView) view.findViewById(R.id.textView_recipe_detail);
         back = (ImageButton) view.findViewById(R.id.imageButton_recipe_back);

@@ -5,26 +5,44 @@
     android:layout_height="match_parent">
 
 
-    <ImageButton
-        android:id="@+id/imageButton_recipe_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_keyboard_back_black_24dp"/>
-    <ImageView
-        android:id="@+id/imageView_recipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher" />
-
     <TextView
         android:id="@+id/textView_recipe_title"
+        android:background="@drawable/textview_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="35dp"
+        android:layout_marginTop="20dp"
+        android:text = "Recipe Title"/>
+
+    <TextView
+        android:id="@+id/textView_calories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Recipe Title"/>
+        android:text = "Calories: "
+        android:textSize="20dp"
+        android:paddingTop="10dp"/>
+
+    <TextView
+        android:id="@+id/textView_ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "Ingredients: "
+        android:textSize="20dp"
+        android:paddingTop="10dp"/>
 
     <TextView
         android:id="@+id/textView_recipe_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Recipe Description"/>
+        android:text = "Recipe Description: "
+        android:textSize="20dp"
+        android:paddingTop="10dp"/>
+
+    <ImageButton
+        android:id="@+id/imageButton_recipe_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        app:srcCompat="@drawable/ic_keyboard_back_black_24dp"/>
 </LinearLayout>

@@ -21,12 +21,22 @@ import com.example.hoh.R;
 public class SearchFragment extends Fragment {
 
     ImageView imageView_hed;
+    ImageView imageView_hea;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search,container,false);
+        imageView_hed = (ImageView) view.findViewById(R.id.imageView_hed);
         imageView_hed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).setSearch_status(1);
+                ((MainActivity) getActivity()).switchToSubSearch();
+            }
+        });
+        imageView_hea = (ImageView) view.findViewById(R.id.imageView_hea);
+        imageView_hea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).setSearch_status(1);

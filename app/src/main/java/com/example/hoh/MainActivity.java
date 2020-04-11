@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private Fragment fg_search_recipe = new SearchRecipeFragment();
     private Fragment fg_subsearch = new SubSearchFragment();
     public int home_status = 0;
-    public int search_status = 1;
+    public int search_status = 0;
     public int favorite_status = 0;
     private FragmentManager fManager;
 
