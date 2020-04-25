@@ -192,6 +192,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     private void goToSignInActivity() {
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
+        hideAllFragment(transaction);
         Intent intent = new Intent(this, SignInActivity.class);
         startActivity(intent);
     }
