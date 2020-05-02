@@ -1,11 +1,14 @@
 package com.example.hoh.signin;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -14,8 +17,10 @@ import android.util.Log;
 
 import com.example.hoh.MainActivity;
 import com.example.hoh.R;
+import com.example.hoh.bean.BaseResponseBean;
 import com.example.hoh.model.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.MediaType;
@@ -28,7 +33,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
+import com.example.hoh.model.User;
 
 import static com.example.hoh.constant.AppConfig.SIGN_IN;
 
@@ -78,6 +86,7 @@ public class SignInActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
                 //创建RequestBody对象，将参数按照指定的MediaType封装
                 RequestBody requestBody = RequestBody.create(mediaType,jsonObject.toString());
                 Request request = new Request.Builder()
@@ -89,19 +98,32 @@ public class SignInActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
 
-                    Gson gson = new Gson();
-                    User user = gson.fromJson(result, User.class);
-                    Log.d(ACTIVITY_TAG, "result: "+result);
-                    Log.d(ACTIVITY_TAG, "data" + user.getUsername());
+                    //get the type of data
+                    Type jsonType = new TypeToken<BaseResponseBean<User>>(){}.getType();
+                    BaseResponseBean<User> bean = new Gson().fromJson(result, jsonType);
+                    if (bean.getData() == null) {
+                        Log.d(ACTIVITY_TAG, "result: Sign in failed");
+
+                        //show Toast
+                        Looper.prepare();
+                        Toast.makeText(SignInActivity.this, "Wrong Username or Password", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    } else{
+                        Log.d(ACTIVITY_TAG, "result: Sign in successfully"+result);
+                        Log.d(ACTIVITY_TAG, "username: " + bean.getData().getUsername());
+                        SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
+                        sharedPreferences.edit().putString("username",username).apply();
+                        sharedPreferences.edit().putInt("id", bean.getData().getUserId());
+                        goToMainActivity(username);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
-                sharedPreferences.edit().putString("username",username).apply();
-//        goToMainActivity(username);
+
             }
         }).start();
     }
+
 
     private void goToMainActivity(String s) {
         Intent intent = new Intent(this, MainActivity.class);

@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.hoh.favorite.FavoriteFragment;
 import com.example.hoh.favorite.FavoriteRecipeFragment;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public int home_status = 0;
     public int search_status = 0;
     public int favorite_status = 0;
+    public boolean is_SignIn = false;
     private FragmentManager fManager;
 
 
@@ -53,6 +55,18 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //get username
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username","");
+
+        // check whether user login in and hide the item on menu
+        if (username.equals("")) {
+            is_SignIn = true;
+            Toast.makeText(MainActivity.this, "Welcome " + username, Toast.LENGTH_SHORT).show();
+        } else {
+            is_SignIn = false;
+        }
+        invalidateOptionsMenu();
 
         fManager = getSupportFragmentManager();
         rg_tab_bar = (RadioGroup) findViewById(R.id.rg_tab_bar);
@@ -205,6 +219,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_menu,menu);
+        MenuItem signIn = menu.findItem(R.id.signin);
+        MenuItem logOut = menu.findItem(R.id.logout);
+        if (is_SignIn) {
+            signIn.setVisible(false);
+            logOut.setVisible(true);
+        } else {
+            signIn.setVisible(true);
+            logOut.setVisible(false);
+        }
         return true;
     }
 
