@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public int home_status = 0;
     public int search_status = 0;
     public int favorite_status = 0;
+
+    //0 for healthism threshold
+    //1 for hedonism threshold
+    public int search_threshold = 0;
     public boolean is_SignIn = false;
     private FragmentManager fManager;
 
@@ -293,6 +297,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     public int getCheck_id() {
         return rg_tab_bar.getCheckedRadioButtonId();
+    }
+
+    public int getSearch_threshold() {
+        return search_threshold;
+    }
+
+    public void setSearch_threshold(int search_threshold) {
+        this.search_threshold = search_threshold;
     }
 
 

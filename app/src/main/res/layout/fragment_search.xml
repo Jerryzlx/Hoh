@@ -10,11 +10,11 @@
         android:id="@+id/imageView_hed"
         android:layout_width="350dp"
         android:layout_height="210dp"
-        app:srcCompat="@drawable/hedonism" />
+        app:srcCompat="@drawable/healthism" />
 
     <ImageView
         android:id="@+id/imageView_hea"
         android:layout_width="350dp"
         android:layout_height="250dp"
-        app:srcCompat="@drawable/healthism" />
+        app:srcCompat="@drawable/hedonism" />
 </LinearLayout>

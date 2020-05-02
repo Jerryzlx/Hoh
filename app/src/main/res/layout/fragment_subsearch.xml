@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/low"
-            android:text="Low Calories 600"
+            android:text="Low Calories 300"
             android:checked="true"
             android:layout_margin="5dp"
             android:textSize="18sp"
@@ -25,7 +25,7 @@
 
         <RadioButton
             android:id="@+id/mid"
-            android:text="Mid Calories 1200"
+            android:text="Mid Calories 500"
             android:checked="true"
             android:layout_margin="5dp"
             android:textSize="18sp"
@@ -34,7 +34,7 @@
 
         <RadioButton
             android:id="@+id/high"
-            android:text="High Calories 1800"
+            android:text="High Calories 700"
             android:layout_margin="5dp"
             android:textSize="18sp"
             android:layout_width="wrap_content"
