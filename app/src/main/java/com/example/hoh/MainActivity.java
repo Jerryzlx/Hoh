@@ -23,6 +23,7 @@ import com.example.hoh.home.HomeRecipeFragment;
 import com.example.hoh.search.SearchRecipeFragment;
 import com.example.hoh.search.SubSearchFragment;
 import com.example.hoh.signin.SignInActivity;
+import com.example.hoh.signup.SignUpActivity;
 import com.example.hoh.timer.TimerFragment;
 import com.example.hoh.home.HomeFragment;
 import com.example.hoh.search.SearchFragment;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         String username = sharedPreferences.getString("username","");
 
         // check whether user login in and hide the item on menu
-        if (username.equals("")) {
+        if (!username.equals("")) {
             is_SignIn = true;
             Toast.makeText(MainActivity.this, "Welcome " + username, Toast.LENGTH_SHORT).show();
         } else {
@@ -213,6 +214,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         startActivity(intent);
     }
 
+    private void goToSignUpActivity() {
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
+        hideAllFragment(transaction);
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
 
     //top_menu
     @Override
@@ -237,14 +249,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             case R.id.logout:
                 SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
                 sharedPreferences.edit().remove("username").apply();
-                //todo 跳转
+                invalidateOptionsMenu();
                 return true;
 
             case R.id.signin:
-                //todo 跳转
                 goToSignInActivity();
                 return true;
 
+            case R.id.signup:
+                goToSignUpActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

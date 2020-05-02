@@ -15,7 +15,7 @@
         android:hint="Enter your name here"
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
-        app:layout_constraintBottom_toTopOf="@+id/editText_password"
+        app:layout_constraintBottom_toTopOf="@+id/editText_password2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_password"
+        app:layout_constraintTop_toBottomOf="@+id/editText_password2"
         android:onClick="signin"
         tools:ignore="OnClick" />
 

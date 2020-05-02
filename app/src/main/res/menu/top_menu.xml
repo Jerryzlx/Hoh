@@ -18,4 +18,10 @@
         app:showAsAction="never"
         />
 
+    <item
+        android:id="@+id/signup"
+        android:title="Sign up"
+        app:showAsAction="never"
+        />
+
 </menu>
