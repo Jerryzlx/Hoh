@@ -8,7 +8,7 @@
     tools:context=".signin.SignInActivity">
 
     <EditText
-        android:id="@+id/editText_username"
+        android:id="@+id/editText_username2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.9" />
 
     <EditText
-        android:id="@+id/editText_password"
+        android:id="@+id/editText_password2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="300dp"
@@ -36,20 +36,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/login_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="LOGIN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_password"
-        android:onClick="login"
-        tools:ignore="OnClick" />
-
-    <Button
-        android:id="@+id/toSignup_Button"
+        android:id="@+id/signup_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -57,6 +44,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_password" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_password"
+        android:onClick="signin"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/back_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_Button"
+        tools:ignore="OnClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
