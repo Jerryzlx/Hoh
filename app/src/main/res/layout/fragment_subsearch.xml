@@ -4,12 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textSize="18sp" />
+
     <TextView
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:text="Please choose one option："
-        android:textSize="18sp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Please choose one option:(calories)"
+        android:textSize="18sp" />
     <RadioGroup
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -18,7 +25,7 @@
             android:id="@+id/low"
             android:text="Low Calories 300"
             android:checked="true"
-            android:layout_margin="5dp"
+            android:layout_margin="4dp"
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -27,7 +34,7 @@
             android:id="@+id/mid"
             android:text="Mid Calories 500"
             android:checked="true"
-            android:layout_margin="5dp"
+            android:layout_margin="4dp"
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -35,7 +42,7 @@
         <RadioButton
             android:id="@+id/high"
             android:text="High Calories 700"
-            android:layout_margin="5dp"
+            android:layout_margin="4dp"
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -83,18 +90,18 @@
         android:orientation="horizontal"
         android:paddingLeft="30dp">
 
-        <Button
+        <CheckBox
             android:id="@+id/beef"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Beef"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
-        <Button
-            android:id="@+id/cabbage"
+        <CheckBox
+            android:id="@+id/chicken"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Cabbage"
+            android:text="Chicken"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -104,39 +111,39 @@
         android:orientation="horizontal"
         android:paddingLeft="30dp">
 
-        <Button
+        <CheckBox
+            android:id="@+id/broccoli"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Broccoli"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/carrot"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Carrot"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp">
+
+        <CheckBox
             android:id="@+id/cake"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Cake"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/biscuit"
+        <CheckBox
+            android:id="@+id/apple"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Biscuit"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="30dp">
-
-        <Button
-            android:id="@+id/bake"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Bake"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/boil"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Boil"
+            android:text="Apple"
             android:textSize="18sp" />
     </LinearLayout>
 
