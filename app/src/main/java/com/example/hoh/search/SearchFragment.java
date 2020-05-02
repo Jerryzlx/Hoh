@@ -32,6 +32,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).setSearch_status(1);
+                ((MainActivity) getActivity()).setSearch_threshold(1);
                 ((MainActivity) getActivity()).switchToSubSearch();
             }
         });
@@ -40,6 +41,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).setSearch_status(1);
+                ((MainActivity) getActivity()).setSearch_threshold(0);
                 ((MainActivity) getActivity()).switchToSubSearch();
             }
         });
