@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login"
     tools:context=".signin.SignInActivity">
 
     <EditText
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
-        android:hint="Enter your name here"
+        android:hint="Enter username here"
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         app:layout_constraintBottom_toTopOf="@+id/editText_password2"
@@ -26,8 +27,8 @@
         android:id="@+id/editText_password2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="300dp"
-        android:hint="Enter your password here"
+        android:layout_marginBottom="260dp"
+        android:hint="Enter password here"
         android:inputType="textPassword"
         android:selectAllOnFocus="false"
         android:singleLine="false"
@@ -39,20 +40,20 @@
         android:id="@+id/signup_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
+        android:onClick="signin"
         android:text="SIGN UP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_password2"
-        android:onClick="signin"
         tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/back_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:text="back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
