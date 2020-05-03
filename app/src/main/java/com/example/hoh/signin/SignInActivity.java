@@ -1,28 +1,25 @@
 package com.example.hoh.signin;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.example.hoh.MainActivity;
 import com.example.hoh.R;
 import com.example.hoh.bean.BaseResponseBean;
 import com.example.hoh.model.User;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.HttpUrl;
+
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -34,9 +31,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
-import com.example.hoh.model.User;
+
 
 import static com.example.hoh.constant.AppConfig.SIGN_IN;
 
@@ -44,6 +39,7 @@ public class SignInActivity extends AppCompatActivity {
     private static final String ACTIVITY_TAG="SignInLog";
     private EditText text_username;
     private EditText text_password;
+    private final OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +63,6 @@ public class SignInActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpClient client = new OkHttpClient();
                 String responseData = null;
                 String username = text_username.getText().toString();
                 String password = text_password.getText().toString();
@@ -113,8 +108,9 @@ public class SignInActivity extends AppCompatActivity {
                         Log.d(ACTIVITY_TAG, "username: " + bean.getData().getUsername());
                         SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
                         sharedPreferences.edit().putString("username",username).apply();
+                        sharedPreferences.edit().putInt("id",bean.getData().getUserId()).apply();
                         sharedPreferences.edit().putInt("id", bean.getData().getUserId());
-                        goToMainActivity(username);
+                        goToMainActivity(username, bean.getData().getUserId());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -125,9 +121,10 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 
-    private void goToMainActivity(String s) {
+    private void goToMainActivity(String username, int id) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Welcome",s);
+        intent.putExtra("username",username);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 
