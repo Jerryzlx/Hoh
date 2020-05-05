@@ -2,8 +2,9 @@ package com.example.hoh.favorite;
 
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,47 +16,127 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hoh.MainActivity;
 import com.example.hoh.R;
+import com.example.hoh.bean.BaseResponseBean;
+import com.example.hoh.model.Recipe;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.layout.simple_list_item_1;
+import static com.example.hoh.constant.AppConfig.GET_FAVORITE;
 
 @SuppressLint("ValidFragment")
 public class FavoriteFragment extends Fragment {
 
+    private static final String FRAGMENT_TAG="FavoriteLog";
+    private final OkHttpClient client = new OkHttpClient();
+    private ListView listview;
+    private List<Recipe> recipeData;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorite,container,false);
-        ListView listView = (ListView) view.findViewById(R.id.listView_faborite);
+        View view = inflater.inflate(R.layout.fragment_recipes_list,container,false);
+        update();
+        ListView listView = (ListView) view.findViewById(R.id.listView_recipe);
         //定义一个链表用于存放要显示的数据
-        final List<String> adapterData = new ArrayList<String>();
-        //存放要显示的数据
-        for (int i = 0; i < 20; i++) {
-            adapterData.add("ListItem" + i);
-        }
-        //创建ArrayAdapter对象adapter并设置适配器
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                simple_list_item_1, adapterData);
-        //将LsitView绑定到ArrayAdapter上
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            //parent 代表listView View 代表 被点击的列表项 position 代表第几个 id 代表列表编号
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//               Toast.makeText(getActivity(), id+"", Toast.LENGTH_LONG).show();
-                ((MainActivity) getActivity()).setFavorite_status(1);
-                ((MainActivity) getActivity()).switchToFavoriteRecipe();
-            }
-        });
+//        //存放要显示的数据
+//        for (int i = 0; i < 20; i++) {
+//            adapterData.add("ListItem" + i);
+//        }
+
         return view;
     }
 
+    private void update(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String responseData = null;
+//                int userId = ((MainActivity) getActivity()).getUserId();
+                int userId = 1;
+//                //build the URL for login
+//                HttpUrl.Builder urlBuilder = HttpUrl.parse(SIGN_IN).newBuilder();
+//                urlBuilder.addQueryParameter("username", username);
+//                urlBuilder.addQueryParameter("password", password);
+                String url = GET_FAVORITE;
+                HttpUrl httpUrl = HttpUrl.parse(url).newBuilder().addQueryParameter("userId", String.valueOf(userId)).build();
+                Request request = new Request.Builder()
+                        .url(httpUrl.toString())
+                        .build();
+                Log.i(FRAGMENT_TAG, request.toString());
+                try {
+                    Response response = client.newCall(request).execute();//发送请求
+                    String result = response.body().string();
 
+                    //get the type of data
+                    Type jsonType = new TypeToken<BaseResponseBean<List<Recipe>>>(){}.getType();
+                    BaseResponseBean<Recipe> bean = new Gson().fromJson(result, jsonType);
+                    if (bean.getData() == null) {
+                        Log.d(FRAGMENT_TAG, "result: Update favorite page failed :");
+
+                        //show Toast
+                        Looper.prepare();
+                        Toast.makeText(getActivity(), "Wrong Username or Password", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    } else{
+                        Log.d(FRAGMENT_TAG, "result: Update favorite page successfully"+result);
+                        Log.d(FRAGMENT_TAG, "result: " + bean.getData());
+                        recipeData = (List<Recipe>) bean.getData();
+                        Log.d(FRAGMENT_TAG, "data: " + recipeData);
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //创建ArrayAdapter对象adapter并设置适配器
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                        simple_list_item_1, getData());
+                                //将LsitView绑定到ArrayAdapter上
+                                ListView listView = getView().findViewById(R.id.listView_recipe);
+                                listView.setAdapter(adapter);
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    //parent 代表listView View 代表 被点击的列表项 position 代表第几个 id 代表列表编号
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//               Toast.makeText(getActivity(), id+"", Toast.LENGTH_LONG).show();
+                                        ((MainActivity) getActivity()).switchToFavoriteRecipe();
+                                        ((MainActivity) getActivity()).setFavorite_status(1);
+                                        ((MainActivity) getActivity()).setFavorite_choosen_recipe(recipeData.get(position));
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+    private List<String> getData() {
+        List<String> data = new ArrayList<>();
+        for (Recipe recipe : recipeData) {
+            data.add(recipe.getRecipeTitle());
+        }
+        return data;
+    }
 }
+
+
+
+
+
 

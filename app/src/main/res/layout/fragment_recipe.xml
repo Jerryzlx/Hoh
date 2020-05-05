@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ImageButton
-        android:id="@+id/imageButton_recipe_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_keyboard_back_black_24dp"/>
-
-    <TextView
-        android:id="@+id/textView_recipe_title"
-        android:background="@drawable/textview_border"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="35dp"
-        android:layout_marginTop="20dp"
-        android:text = "Recipe Title"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView_calories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Calories: "
-        android:textSize="20dp"
-        android:paddingTop="10dp"/>
+        <ImageButton
+            android:id="@+id/imageButton_recipe_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_keyboard_back_black_24dp"/>
 
-    <TextView
-        android:id="@+id/textView_ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Ingredients: "
-        android:textSize="20dp"
-        android:paddingTop="10dp"/>
+        <TextView
+            android:id="@+id/textView_recipe_title"
+            android:background="@drawable/textview_border"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="35dp"
+            android:layout_marginTop="20dp"
+            android:text = "Recipe Title"/>
 
-    <TextView
-        android:id="@+id/textView_recipe_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Recipe Description: "
-        android:textSize="20dp"
-        android:paddingTop="10dp"/>
+        <TextView
+            android:id="@+id/textView_recipe_calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "Calories: "
+            android:textSize="20dp"
+            android:paddingTop="10dp"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textView_recipe_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "Ingredients: "
+            android:textSize="20dp"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/textView_recipe_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "Recipe Directions: "
+            android:textSize="20dp"
+            android:paddingTop="10dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

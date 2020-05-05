@@ -9,18 +9,23 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+
 import com.example.hoh.favorite.FavoriteFragment;
 import com.example.hoh.favorite.FavoriteRecipeFragment;
 import com.example.hoh.home.HomeRecipeFragment;
+import com.example.hoh.model.Recipe;
 import com.example.hoh.search.SearchRecipeFragment;
+import com.example.hoh.search.SearchRecipeListFragment;
 import com.example.hoh.search.SubSearchFragment;
 import com.example.hoh.signin.SignInActivity;
 import com.example.hoh.signup.SignUpActivity;
@@ -28,8 +33,13 @@ import com.example.hoh.timer.TimerFragment;
 import com.example.hoh.home.HomeFragment;
 import com.example.hoh.search.SearchFragment;
 import com.example.hoh.shoppinglist.ShoppingListFragment;
+import com.squareup.okhttp.OkHttpClient;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+
+    private static final String ACTIVITY_TAG="MainLog";
 
     private RadioGroup rg_tab_bar;
     private RadioButton rb_main;
@@ -44,20 +54,31 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private Fragment fg_favorite_recipe = new FavoriteRecipeFragment();
     private Fragment fg_search_recipe = new SearchRecipeFragment();
     private Fragment fg_subsearch = new SubSearchFragment();
+    private Fragment fg_search_recipe_list = new SearchRecipeListFragment();
     public int home_status = 0;
     public int search_status = 0;
     public int favorite_status = 0;
+    public Recipe search_choosen_recipe;
+    public Recipe favorite_choosen_recipe;
+    public Map<String, Object> constrait;
 
     //0 for healthism threshold
     //1 for hedonism threshold
     public int search_threshold = 0;
     public boolean is_SignIn = false;
+    public int userId = -1;
+    public String username = null;
     private FragmentManager fManager;
+    private final OkHttpClient client = new OkHttpClient();
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            getWindow().getDecorView().setImportantForAutofill(
+                    View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //get username
@@ -97,9 +118,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 } else if (getSearch_status() == 1) {
                     switchToSubSearch();
 
+                } else if (getSearch_status() == 2) {
+                    switchToSearchRecipeList();
                 } else {
                     switchToSearchRecipe();
                 }
+
 //                if (fg_search == null){
 //                    //第一次需要加载Fragment
 //                    fg_search = new SearchFragment();
@@ -173,9 +197,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public void switchToFavorite() {
         switchFragment(fg_favorite);
     }
-    public void switchToSearch() {
-        switchFragment(fg_search);
-    }
     public void switchToShoppingList() {
         switchFragment(fg_shopping_list);
     }
@@ -186,14 +207,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         switchFragment(fg_home_recipe);
     }
 
-    public void switchToSearchRecipe() {
-        switchFragment(fg_search_recipe);
+    public void switchToSearch() {
+        switchFragment(fg_search);
     }
-
     public void switchToSubSearch() {
         switchFragment(fg_subsearch);
     }
-
+    public void switchToSearchRecipeList() { switchFragment(fg_search_recipe_list);}
+    public void switchToSearchRecipe() {
+        switchFragment(fg_search_recipe);
+    }
     public void switchToTimer() {
         switchFragment(fg_timer);
     }
@@ -307,7 +330,43 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         this.search_threshold = search_threshold;
     }
 
+    public int getUserId() {
+        return userId;
+    }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Recipe getSearch_choosen_recipe() {
+        return search_choosen_recipe;
+    }
+
+    public void setSearch_choosen_recipe(Recipe search_choosen_recipe) {
+        this.search_choosen_recipe = search_choosen_recipe;
+    }
+
+    public Recipe getFavorite_choosen_recipe() {
+        return favorite_choosen_recipe;
+    }
+
+    public void setFavorite_choosen_recipe(Recipe favorite_choosen_recipe) {
+        this.favorite_choosen_recipe = favorite_choosen_recipe;
+    }
+
+    public Map<String, Object> getConstrait() {
+        return constrait;
+    }
+
+    public void setConstrait(Map<String, Object> constrait) {
+        this.constrait = constrait;
+    }
 }
