@@ -1,6 +1,5 @@
 package com.example.hoh.signin;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -110,8 +109,9 @@ public class SignInActivity extends AppCompatActivity {
                         Log.d(ACTIVITY_TAG, "username: " + bean.getData().getUsername());
                         SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
                         sharedPreferences.edit().putString("username",username).apply();
+                        sharedPreferences.edit().putInt("id",bean.getData().getUserId()).apply();
                         sharedPreferences.edit().putInt("id", bean.getData().getUserId());
-                        goToMainActivity(username);
+                        goToMainActivity(username, bean.getData().getUserId());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -122,9 +122,10 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 
-    private void goToMainActivity(String s) {
+    private void goToMainActivity(String username, int id) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Welcome",s);
+        intent.putExtra("username",username);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 

@@ -17,7 +17,7 @@ import com.example.hoh.R;
 
 public class HomeRecipeFragment extends Fragment {
     private TextView title;
-    private TextView detail;
+    private TextView direction;
     private ImageButton back;
 
     @Nullable
@@ -25,7 +25,7 @@ public class HomeRecipeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe,container,false);
         title = (TextView) view.findViewById(R.id.textView_recipe_title);
-        detail = (TextView) view.findViewById(R.id.textView_recipe_detail);
+        direction = (TextView) view.findViewById(R.id.textView_recipe_direction);
         back = (ImageButton) view.findViewById(R.id.imageButton_recipe_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

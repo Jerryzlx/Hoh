@@ -40,8 +40,9 @@ public class FavoriteFragment extends Fragment {
 
     private static final String FRAGMENT_TAG="FavoriteLog";
     private final OkHttpClient client = new OkHttpClient();
-    private ListView listview;
+    private ListView listView;
     private List<Recipe> recipeData;
+    private List<String> adaptList;
 
     @Nullable
     @Override
@@ -63,8 +64,15 @@ public class FavoriteFragment extends Fragment {
             @Override
             public void run() {
                 String responseData = null;
-//                int userId = ((MainActivity) getActivity()).getUserId();
-                int userId = 1;
+                int userId = ((MainActivity) getActivity()).getUserId();
+                if (userId == -1) {
+                    Looper.prepare();
+                    Toast.makeText(getActivity(), "You need to sign in first to see your favorite recipes", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                    adaptList.clear();
+
+                    return;
+                }
 //                //build the URL for login
 //                HttpUrl.Builder urlBuilder = HttpUrl.parse(SIGN_IN).newBuilder();
 //                urlBuilder.addQueryParameter("username", username);
@@ -76,7 +84,7 @@ public class FavoriteFragment extends Fragment {
                         .build();
                 Log.i(FRAGMENT_TAG, request.toString());
                 try {
-                    Response response = client.newCall(request).execute();//发送请求
+                    Response response = client.newCall(request).execute();//send request
                     String result = response.body().string();
 
                     //get the type of data
@@ -98,9 +106,10 @@ public class FavoriteFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                adaptList = getData();
                                 //创建ArrayAdapter对象adapter并设置适配器
                                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                        simple_list_item_1, getData());
+                                        simple_list_item_1, adaptList);
                                 //将LsitView绑定到ArrayAdapter上
                                 ListView listView = getView().findViewById(R.id.listView_recipe);
                                 listView.setAdapter(adapter);
@@ -132,6 +141,14 @@ public class FavoriteFragment extends Fragment {
             data.add(recipe.getRecipeTitle());
         }
         return data;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            update();
+        }
     }
 }
 

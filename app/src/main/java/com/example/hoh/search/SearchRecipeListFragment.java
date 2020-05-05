@@ -72,8 +72,8 @@ public class SearchRecipeListFragment extends Fragment {
                 } else {
                     constrait = ((MainActivity) getActivity()).getConstrait();
                 }
-//                int userId = ((MainActivity) getActivity()).getUserId();
-                int userId = 1;
+
+                int userId = ((MainActivity) getActivity()).getUserId();
                 String url = SEARCH;
                 MediaType mediaType = MediaType.parse("application/json");
                 //使用JSONObject封装参数
@@ -101,10 +101,10 @@ public class SearchRecipeListFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //创建ArrayAdapter对象adapter并设置适配器
+                            //make arrayAdapter
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                                     simple_list_item_1, getData());
-                            //将LsitView绑定到ArrayAdapter上
+                            //bind the ListView with the ArrayAdapter
                             ListView listView = getView().findViewById(R.id.listView_recipe);
                             listView.setAdapter(adapter);
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -19,7 +19,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-
 import com.example.hoh.favorite.FavoriteFragment;
 import com.example.hoh.favorite.FavoriteRecipeFragment;
 import com.example.hoh.home.HomeRecipeFragment;
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //get username
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
+        userId = sharedPreferences.getInt("id", -1);
 
         // check whether user login in and hide the item on menu
         if (!username.equals("")) {
@@ -102,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //获取首页单选按钮，并设置为选中状态
         rb_main = (RadioButton) findViewById(R.id.rb_home);
         rb_main.setChecked(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        userId = sharedPreferences.getInt("id", -1);
     }
 
 
@@ -276,6 +284,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             case R.id.logout:
                 SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh", Context.MODE_PRIVATE);
                 sharedPreferences.edit().remove("username").apply();
+                sharedPreferences.edit().remove("id").apply();
+                userId = -1;
+                is_SignIn = false;
                 invalidateOptionsMenu();
                 return true;
 
