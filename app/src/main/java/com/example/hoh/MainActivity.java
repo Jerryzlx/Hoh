@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public int favorite_status = 0;
     public Recipe search_choosen_recipe;
     public Recipe favorite_choosen_recipe;
+    public Recipe home_choosen_recipe;
     public Map<String, Object> constrait;
 
     //0 for healthism threshold
@@ -373,6 +374,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         this.favorite_choosen_recipe = favorite_choosen_recipe;
     }
 
+    public Recipe getHome_choosen_recipe() {
+        return home_choosen_recipe;
+    }
+
+    public void setHome_choosen_recipe(Recipe home_choosen_recipe) {
+        this.home_choosen_recipe = home_choosen_recipe;
+    }
+
     public Map<String, Object> getConstrait() {
         return constrait;
     }
@@ -380,4 +389,5 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public void setConstrait(Map<String, Object> constrait) {
         this.constrait = constrait;
     }
+
 }

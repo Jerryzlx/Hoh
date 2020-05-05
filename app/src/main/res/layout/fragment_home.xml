@@ -11,17 +11,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView1"
+        <TextView
+            android:id="@+id/home_1"
             android:layout_width="155dp"
             android:layout_height="154dp"
+            android:background="@drawable/textview_border"
             app:srcCompat="@drawable/p1" />
 
 
-        <ImageView
-            android:id="@+id/imageView2"
+        <TextView
+            android:id="@+id/home_2"
             android:layout_width="155dp"
             android:layout_height="154dp"
+            android:background="@drawable/textview_border"
             app:srcCompat="@drawable/p2" />
     </LinearLayout>
 
@@ -31,16 +33,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <TextView
+            android:id="@+id/home_3"
             android:layout_width="155dp"
             android:layout_height="154dp"
+            android:background="@drawable/textview_border"
             app:srcCompat="@drawable/p3" />
 
-        <ImageView
-            android:id="@+id/imageView4"
+        <TextView
+            android:id="@+id/home_4"
             android:layout_width="155dp"
             android:layout_height="154dp"
+            android:background="@drawable/textview_border"
             app:srcCompat="@drawable/p4" />
     </LinearLayout>
 
@@ -50,16 +54,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <TextView
+            android:id="@+id/home_5"
             android:layout_width="155dp"
             android:layout_height="154dp"
+            android:background="@drawable/textview_border"
             app:srcCompat="@drawable/p5" />
 
-        <ImageView
-            android:id="@+id/imageView6"
+        <TextView
+            android:id="@+id/home_6"
             android:layout_width="155dp"
             android:layout_height="154dp"
+            android:background="@drawable/textview_border"
             app:srcCompat="@drawable/p6" />
 
     </LinearLayout>

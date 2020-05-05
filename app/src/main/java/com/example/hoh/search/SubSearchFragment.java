@@ -132,7 +132,7 @@ public class SubSearchFragment extends Fragment {
             constraint.put("category", category);
         }
         if (name.getText()== null || !name.getText().toString().equals("")) {
-            constraint.put("title", name.getText());
+            constraint.put("title", name.getText().toString());
         }
         Log.d(FRAGMENT_TAG, constraint.toString());
         return constraint;

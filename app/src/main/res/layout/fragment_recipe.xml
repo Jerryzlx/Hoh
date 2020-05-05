@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                app:srcCompat="@drawable/ic_favorite_black_24dp" />
+                app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
 
         </LinearLayout>
 

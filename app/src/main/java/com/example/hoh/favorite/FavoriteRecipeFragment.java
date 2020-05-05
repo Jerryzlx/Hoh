@@ -77,6 +77,13 @@ public class FavoriteRecipeFragment extends Fragment {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (((MainActivity) getActivity()).getUserId() == -1) {
+                    //show Toast
+
+                    Toast.makeText(getActivity(), "You have to sign in first!", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                    return;
+                }
                 checkIsLike();
                 new Thread(new Runnable() {
                     @Override
@@ -156,6 +163,14 @@ public class FavoriteRecipeFragment extends Fragment {
     }
 
     private void checkIsLike() {
+        if (((MainActivity) getActivity()).getUserId() == -1) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    like.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
+                }
+            });
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {

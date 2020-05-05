@@ -9,15 +9,16 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.hoh.MainActivity;
 import com.example.hoh.R;
-
 import com.example.hoh.bean.BaseResponseBean;
 import com.example.hoh.model.User;
 
+import com.example.hoh.signup.SignUpActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -40,6 +41,7 @@ public class SignInActivity extends AppCompatActivity {
     private static final String ACTIVITY_TAG="SignInLog";
     private EditText text_username;
     private EditText text_password;
+    private Button toSignUp;
     private final OkHttpClient client = new OkHttpClient();
 
     @Override
@@ -48,6 +50,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
         text_username = (EditText) findViewById(R.id.editText_username);
         text_password = (EditText) findViewById(R.id.editText_password);
+        toSignUp = (Button)findViewById(R.id.toSignup_Button);
         String usernameKey = "username";
 
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.hoh",Context.MODE_PRIVATE);
@@ -58,6 +61,13 @@ public class SignInActivity extends AppCompatActivity {
 //        }else {
 //            setContentView(R.layout.activity_signin);
 //        }
+        toSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void login(View view){

@@ -67,6 +67,7 @@ public class SearchRecipeFragment extends Fragment {
         like = (ImageButton) view.findViewById(R.id.like);
 
         update();
+        checkIsLike();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +79,13 @@ public class SearchRecipeFragment extends Fragment {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (((MainActivity) getActivity()).getUserId() == -1) {
+                    //show Toast
+
+                    Toast.makeText(getActivity(), "You have to sign in first!", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                    return;
+                }
                 checkIsLike();
                 new Thread(new Runnable() {
                     @Override
@@ -158,6 +166,14 @@ public class SearchRecipeFragment extends Fragment {
     }
 
     private void checkIsLike() {
+        if (((MainActivity) getActivity()).getUserId() == -1) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    like.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
+                }
+            });
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -221,6 +237,7 @@ public class SearchRecipeFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            checkIsLike();
             update();
         }
     }

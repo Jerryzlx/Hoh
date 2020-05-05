@@ -69,7 +69,7 @@ public class FavoriteFragment extends Fragment {
                     Looper.prepare();
                     Toast.makeText(getActivity(), "You need to sign in first to see your favorite recipes", Toast.LENGTH_SHORT).show();
                     Looper.loop();
-                    adaptList.clear();
+                    listView.setAdapter(null);
 
                     return;
                 }
@@ -95,7 +95,7 @@ public class FavoriteFragment extends Fragment {
 
                         //show Toast
                         Looper.prepare();
-                        Toast.makeText(getActivity(), "Wrong Username or Password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Update favorite page failed!", Toast.LENGTH_SHORT).show();
                         Looper.loop();
                     } else{
                         Log.d(FRAGMENT_TAG, "result: Update favorite page successfully"+result);
