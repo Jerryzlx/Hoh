@@ -68,11 +68,10 @@ public class FavoriteFragment extends Fragment {
                 String responseData = null;
                 int userId = ((MainActivity) getActivity()).getUserId();
                 if (userId == -1) {
+                    listView.setAdapter(null);
                     Looper.prepare();
                     Toast.makeText(getActivity(), "You need to sign in first to see your favorite recipes", Toast.LENGTH_SHORT).show();
                     Looper.loop();
-                    listView.setAdapter(null);
-
                     return;
                 }
 //                //build the URL for login
