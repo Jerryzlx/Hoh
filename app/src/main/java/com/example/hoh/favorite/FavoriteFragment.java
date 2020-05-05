@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,9 +48,10 @@ public class FavoriteFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recipes_list,container,false);
+        View view = inflater.inflate(R.layout.fragment_recipes_list_v2,container,false);
         update();
-        ListView listView = (ListView) view.findViewById(R.id.listView_recipe);
+        listView = (ListView) view.findViewById(R.id.listView_recipe);
+
         //定义一个链表用于存放要显示的数据
 //        //存放要显示的数据
 //        for (int i = 0; i < 20; i++) {

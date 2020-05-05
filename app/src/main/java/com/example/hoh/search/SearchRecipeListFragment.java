@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,7 +51,8 @@ public class SearchRecipeListFragment extends Fragment {
 
     private static final String FRAGMENT_TAG="SearchLog";
     private final OkHttpClient client = new OkHttpClient();
-    private ListView listview;
+    private ListView listView;
+    private Button back;
     private List<Recipe> recipeData;
     private Map<String, Object> constrait;
 
@@ -59,7 +61,17 @@ public class SearchRecipeListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipes_list,container,false);
         update();
-        ListView listView = (ListView) view.findViewById(R.id.listView_recipe);
+        listView = (ListView) view.findViewById(R.id.listView_recipe);
+        back = (Button) view.findViewById(R.id.btn_back_list);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).setSearch_status(1);
+                ((MainActivity) getActivity()).switchToSubSearch();
+            }
+        });
+
         return view;
     }
 
@@ -133,6 +145,14 @@ public class SearchRecipeListFragment extends Fragment {
             data.add(recipe.getRecipeTitle());
         }
         return data;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            update();
+        }
     }
 
 }
