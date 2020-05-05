@@ -154,6 +154,22 @@ public class SubSearchFragment extends Fragment {
         }
         return 0;
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            if (((MainActivity) getActivity()).getSearch_threshold() == 0) {
+                rb_low.setText("300");
+                rb_mid.setText("500");
+                rb_high.setText("700");
+            } else {
+                rb_low.setText("900");
+                rb_mid.setText("1100");
+                rb_high.setText("1300");
+            }
+        }
+    }
 }
 
 
